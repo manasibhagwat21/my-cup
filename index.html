@@ -30,7 +30,7 @@
       radial-gradient(ellipse at 90% 100%, rgba(254,200,154,0.3) 0%, transparent 55%);
   }
 
-  .page { max-width: 940px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  .page { max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
 
   header { text-align: center; margin-bottom: 3.5rem; }
 
@@ -38,15 +38,9 @@
     display: flex; align-items: center; gap: 1rem;
     justify-content: center; margin-bottom: 1rem;
   }
-  .header-ornament .line {
-    height: 1px; width: 64px;
-    background: linear-gradient(to right, transparent, var(--blush));
-  }
+  .header-ornament .line { height: 1px; width: 64px; background: linear-gradient(to right, transparent, var(--blush)); }
   .header-ornament .line.r { background: linear-gradient(to left, transparent, var(--blush)); }
-  .header-ornament .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--blush); opacity: 0.7;
-  }
+  .header-ornament .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blush); opacity: 0.7; }
 
   h1 {
     font-family: 'Cormorant Garamond', serif;
@@ -61,23 +55,22 @@
   }
 
   .main-layout {
-    display: grid; grid-template-columns: 240px 1fr;
+    display: grid; grid-template-columns: 260px 1fr;
     gap: 3.5rem; align-items: start;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 660px) {
     .main-layout { grid-template-columns: 1fr; }
     .cup-section { display: flex; flex-direction: column; align-items: center; }
   }
 
-  /* Cup */
-  .cup-wrap { width: 200px; margin: 0 auto; }
+  /* ── Cup ── */
+  .cup-wrap { width: 200px; margin: 0 auto; position: relative; }
 
   .steam-container {
     display: flex; gap: 12px; justify-content: center;
     height: 44px; align-items: flex-end; margin-bottom: 2px;
   }
-
   .steam-line {
     width: 2.5px; border-radius: 99px; background: var(--blush);
     transform-origin: bottom center; opacity: 0;
@@ -96,36 +89,106 @@
 
   svg.cup-svg { display: block; width: 200px; overflow: visible; }
 
-  .cup-score { text-align: center; margin-top: 1.4rem; }
-
-  .score-num {
+  /* Note inside cup */
+  .cup-note-overlay {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 136px;
+    text-align: center;
+    pointer-events: none;
+    transition: bottom 1.4s cubic-bezier(0.34,1.4,0.64,1), opacity 0.6s;
+    opacity: 0;
+    padding-bottom: 8px;
+  }
+  .cup-note-text {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3.8rem; font-weight: 600;
-    color: var(--blush); line-height: 1; letter-spacing: -0.02em;
+    font-style: italic;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: rgba(92,61,53,0.82);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .score-label {
-    font-size: 0.68rem; color: var(--faint);
-    text-transform: uppercase; letter-spacing: 0.22em;
-    margin-top: 0.1rem; font-weight: 400;
+  /* Score block */
+  .cup-score { text-align: center; margin-top: 1.2rem; }
+
+  .score-row {
+    display: flex; align-items: baseline;
+    justify-content: center; gap: 0.2rem;
+  }
+  .score-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 600;
+    color: var(--blush); line-height: 1;
+  }
+  .score-denom {
+    font-size: 0.72rem; color: var(--faint);
+    font-weight: 300; letter-spacing: 0.05em;
   }
 
   .cup-date {
-    font-size: 0.82rem; color: var(--soft); margin-top: 0.5rem;
+    font-size: 0.78rem; color: var(--soft); margin-top: 0.3rem;
     font-style: italic; font-family: 'Cormorant Garamond', serif;
   }
 
-  /* Entries */
+  .affirmation {
+    margin-top: 0.9rem;
+    font-size: 0.8rem;
+    color: var(--soft);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    line-height: 1.5;
+    min-height: 2.4rem;
+    transition: opacity 0.5s;
+    padding: 0 0.5rem;
+  }
+
+  /* ── Trend ── */
+  .trend-section { margin-top: 1.6rem; }
+
+  .trend-label {
+    font-size: 0.65rem; color: var(--faint);
+    text-transform: uppercase; letter-spacing: 0.18em;
+    margin-bottom: 0.55rem; font-weight: 400;
+  }
+
+  .trend-bars {
+    display: flex; gap: 4px; align-items: flex-end; height: 44px;
+  }
+
+  .trend-bar-wrap {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 4px; flex: 1;
+  }
+
+  .trend-bar {
+    width: 100%; border-radius: 3px 3px 0 0;
+    background: var(--almond);
+    transition: height 0.8s cubic-bezier(0.34,1.4,0.64,1);
+    min-height: 3px;
+  }
+  .trend-bar.current { background: var(--blush); }
+
+  .trend-day {
+    font-size: 0.58rem; color: var(--faint);
+    letter-spacing: 0.04em; white-space: nowrap;
+  }
+
+  /* ── Entries ── */
   .entries-section h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem; font-style: italic;
+    font-size: 1.25rem; font-style: italic;
     color: var(--text); margin-bottom: 1.1rem;
     font-weight: 400; letter-spacing: 0.02em;
   }
 
   .entries-list {
     display: flex; flex-direction: column; gap: 0.65rem;
-    max-height: 500px; overflow-y: auto; padding-right: 6px;
+    max-height: 520px; overflow-y: auto; padding-right: 6px;
   }
   .entries-list::-webkit-scrollbar { width: 3px; }
   .entries-list::-webkit-scrollbar-track { background: transparent; }
@@ -133,13 +196,13 @@
 
   .entry-card {
     background: rgba(255,255,255,0.55);
-    border: 1px solid rgba(255,181,167,0.3);
+    border: 1px solid rgba(255,181,167,0.28);
     border-radius: 14px; padding: 0.9rem 1.1rem;
     transition: background 0.2s, box-shadow 0.2s;
   }
   .entry-card:hover {
     background: rgba(255,255,255,0.8);
-    box-shadow: 0 3px 18px rgba(255,181,167,0.2);
+    box-shadow: 0 3px 18px rgba(255,181,167,0.18);
   }
 
   .entry-header {
@@ -147,13 +210,12 @@
     align-items: center; margin-bottom: 0.4rem;
   }
 
-  .entry-date { font-size: 0.73rem; color: var(--faint); font-weight: 300; letter-spacing: 0.04em; }
+  .entry-date { font-size: 0.72rem; color: var(--faint); font-weight: 300; letter-spacing: 0.04em; }
 
   .entry-score-badge {
     font-size: 0.67rem; font-weight: 500;
     padding: 2px 10px; border-radius: 99px; letter-spacing: 0.06em;
   }
-
   .score-low  { background: rgba(255,181,167,0.25); color: #A0544A; }
   .score-mid  { background: rgba(254,200,154,0.35); color: #8A6230; }
   .score-high { background: rgba(160,210,160,0.28); color: #3A6B40; }
@@ -181,15 +243,17 @@
     <div class="header-ornament">
       <span class="line"></span>
       <span class="dot"></span>
-      <span class="dot" style="opacity:0.4; width:4px; height:4px;"></span>
+      <span class="dot" style="opacity:0.4;width:4px;height:4px;"></span>
       <span class="dot"></span>
       <span class="line r"></span>
     </div>
     <h1>Filling My Own Cup</h1>
-    <p class="subtitle">a daily practice of noticing</p>
+    <p class="subtitle">tracking your energy, one day at a time</p>
   </header>
 
   <div class="main-layout">
+
+    <!-- Cup + score + trend -->
     <div class="cup-section">
       <div class="cup-wrap">
         <div class="steam-container" id="steamContainer">
@@ -213,30 +277,22 @@
               <stop offset="100%" stop-color="#F9DCC4"/>
             </linearGradient>
           </defs>
-          <!-- Handle -->
           <path d="M 168 88 Q 210 88 210 136 Q 210 174 168 174"
                 fill="none" stroke="#FCD5CE" stroke-width="15" stroke-linecap="round"/>
           <path d="M 168 88 Q 203 88 203 136 Q 203 168 168 174"
                 fill="none" stroke="#FFF4F2" stroke-width="6.5" stroke-linecap="round"/>
-          <!-- Body -->
           <polygon points="26,20 174,20 188,216 12,216"
                    fill="url(#bodyG)" stroke="#FCD5CE" stroke-width="1.2"/>
-          <!-- Fill -->
           <rect id="liquidRect" x="12" y="216" width="176" height="0"
                 fill="url(#liqG)" clip-path="url(#cupClip)"/>
-          <!-- Surface -->
           <ellipse id="liquidSurface" cx="100" cy="216" rx="76" ry="4"
                    fill="#FEC89A" opacity="0"/>
-          <!-- Shine -->
           <polygon points="44,28 64,28 54,208 36,208" fill="white" opacity="0.13"/>
-          <!-- Rim -->
           <ellipse cx="100" cy="20" rx="74" ry="8.5"
                    fill="#FCD5CE" stroke="#FFB5A7" stroke-width="1"/>
-          <!-- Base -->
           <ellipse cx="100" cy="216" rx="88" ry="6.5"
                    fill="#FCD5CE" stroke="#FFB5A7" stroke-width="0.8"/>
-          <!-- Flower motif -->
-          <g opacity="0.18" transform="translate(68,138)">
+          <g opacity="0.17" transform="translate(68,138)">
             <circle cx="0" cy="0" r="3" fill="#FFB5A7"/>
             <ellipse cx="0" cy="-9" rx="2.8" ry="5.5" fill="#FFB5A7"/>
             <ellipse cx="0" cy="9"  rx="2.8" ry="5.5" fill="#FFB5A7"/>
@@ -248,16 +304,31 @@
             <ellipse cx="6"  cy="6"  rx="2.8" ry="5" fill="#FEC89A" transform="rotate(-45 6 6)"/>
           </g>
         </svg>
+
+        <!-- Note floats inside cup -->
+        <div class="cup-note-overlay" id="cupNoteOverlay">
+          <div class="cup-note-text" id="cupNoteText"></div>
+        </div>
       </div>
+
       <div class="cup-score">
-        <div class="score-num" id="scoreDisplay">–</div>
-        <div class="score-label">out of 10</div>
+        <div class="score-row">
+          <span class="score-num" id="scoreDisplay">–</span>
+          <span class="score-denom">/ 10</span>
+        </div>
         <div class="cup-date" id="latestDate">loading…</div>
+        <div class="affirmation" id="affirmation"></div>
+      </div>
+
+      <div class="trend-section">
+        <div class="trend-label">last 7 days</div>
+        <div class="trend-bars" id="trendBars"></div>
       </div>
     </div>
 
+    <!-- Entries -->
     <div class="entries-section">
-      <h2>how I've been feeling</h2>
+      <h2>your recent capacity</h2>
       <div class="entries-list" id="entriesList">
         <div class="empty-state">your entries will bloom here…</div>
       </div>
@@ -270,6 +341,17 @@
 <script>
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQnd8vsmroOCKxTrD_2PLJLWjiqCHXLDQmzpCNrZ8Yzr24qzpQsnzshQIVspAePCPiRMH_fxg9Sd1yQ/pub?gid=0&single=true&output=csv';
 const PROXY = 'https://corsproxy.io/?';
+
+const AFFIRMATIONS = {
+  low:  [ "be gentle with yourself today", "rest is part of the process", "even a half-full cup nourishes", "you showed up — that matters" ],
+  mid:  [ "you're finding your footing", "steady and present", "there's room to grow from here", "notice what you need today" ],
+  high: [ "your cup is overflowing", "you're in your stride", "this energy is yours — savour it", "you're doing beautifully" ]
+};
+
+function getAffirmation(score) {
+  const bank = score <= 4 ? AFFIRMATIONS.low : score <= 6 ? AFFIRMATIONS.mid : AFFIRMATIONS.high;
+  return bank[Math.floor(Math.random() * bank.length)];
+}
 
 function scoreClass(s) {
   if (s <= 4) return 'score-low';
@@ -284,21 +366,64 @@ function formatDate(str) {
   return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
+function shortDay(str) {
+  if (!str) return '';
+  const d = new Date(str);
+  if (isNaN(d)) return '';
+  return d.toLocaleDateString('en-GB', { weekday: 'short' }).slice(0,2);
+}
+
 function animateCup(score) {
   const pct   = Math.max(0, Math.min(10, score)) / 10;
   const fillH = Math.round((212 - 26) * pct);
   const fillY = 212 - fillH;
+
   const rect  = document.getElementById('liquidRect');
   const surf  = document.getElementById('liquidSurface');
   rect.style.transition = 'none'; surf.style.transition = 'none';
   rect.setAttribute('y', '216'); rect.setAttribute('height', '0');
+
   requestAnimationFrame(() => {
     rect.style.transition = 'height 1.4s cubic-bezier(0.34,1.4,0.64,1), y 1.4s cubic-bezier(0.34,1.4,0.64,1)';
     surf.style.transition  = 'cy 1.4s cubic-bezier(0.34,1.4,0.64,1), opacity 0.5s';
-    rect.setAttribute('y', fillY); rect.setAttribute('height', fillH);
-    surf.setAttribute('cy', fillY); surf.setAttribute('opacity', pct > 0.02 ? '0.55' : '0');
+    rect.setAttribute('y', fillY);
+    rect.setAttribute('height', fillH);
+    surf.setAttribute('cy', fillY);
+    surf.setAttribute('opacity', pct > 0.02 ? '0.55' : '0');
   });
+
   document.getElementById('steamContainer').style.opacity = pct >= 0.5 ? '1' : String(pct * 2);
+
+  // Float note inside cup based on fill level
+  if (pct > 0.15) {
+    const overlay = document.getElementById('cupNoteOverlay');
+    // bottom offset: sits just above the liquid surface
+    // SVG cup bottom is at ~216/230 * cup height = roughly 188px from top of svg
+    // We position from bottom of .cup-wrap (which is the svg height ~200px rendered)
+    const cupRenderedH = 200 * (230 / 200); // viewBox ratio
+    const liquidPxFromBottom = pct * (212 - 26) / 230 * 200;
+    overlay.style.bottom = Math.round(liquidPxFromBottom * 0.18 + 12) + 'px';
+    overlay.style.opacity = Math.min(1, (pct - 0.15) * 5);
+  } else {
+    document.getElementById('cupNoteOverlay').style.opacity = '0';
+  }
+}
+
+function renderTrend(rows) {
+  const container = document.getElementById('trendBars');
+  const last7 = rows.slice(0, 7).reverse();
+  if (!last7.length) { container.innerHTML = ''; return; }
+
+  container.innerHTML = last7.map((r, i) => {
+    const s   = Math.max(0, Math.min(10, parseFloat(r.score) || 0));
+    const pct = s / 10;
+    const h   = Math.max(3, Math.round(40 * pct));
+    const isCurrent = (i === last7.length - 1);
+    return `<div class="trend-bar-wrap">
+      <div class="trend-bar${isCurrent ? ' current' : ''}" style="height:${h}px;"></div>
+      <div class="trend-day">${shortDay(r.date)}</div>
+    </div>`;
+  }).join('');
 }
 
 function renderEntries(rows) {
@@ -322,7 +447,7 @@ function setStatus(msg, err) {
 function parseCSV(text) {
   const lines = text.trim().split('\n').filter(l => l.trim());
   if (lines.length < 2) return [];
-  const h = lines[0].split(',').map(s => s.trim().toLowerCase().replace(/[^a-z]/g, ''));
+  const h  = lines[0].split(',').map(s => s.trim().toLowerCase().replace(/[^a-z]/g, ''));
   const di = h.findIndex(s => s.includes('date'));
   const si = h.findIndex(s => s.includes('score'));
   const ni = h.findIndex(s => s.includes('note'));
@@ -342,18 +467,33 @@ async function loadSheet() {
     text = await r.text();
   } catch {
     if (!local) {
-      try { const r2 = await fetch(PROXY + encodeURIComponent(SHEET_URL)); text = await r2.text(); }
+      try { const r2 = await fetch(PROXY + encodeURIComponent(SHEET_URL)); if (!r2.ok) throw new Error(); text = await r2.text(); }
       catch { setStatus('could not reach your sheet right now', true); document.getElementById('latestDate').textContent = ''; return; }
     } else {
       setStatus('could not reach your sheet right now', true); document.getElementById('latestDate').textContent = ''; return;
     }
   }
+
   const rows = parseCSV(text);
-  if (!rows.length) { document.getElementById('latestDate').textContent = ''; document.getElementById('entriesList').innerHTML = '<div class="empty-state">add some rows to your sheet to begin</div>'; return; }
+  if (!rows.length) {
+    document.getElementById('latestDate').textContent = '';
+    document.getElementById('entriesList').innerHTML = '<div class="empty-state">add some rows to your sheet to begin</div>';
+    return;
+  }
+
   const score = parseFloat(rows[0].score) || 0;
   document.getElementById('scoreDisplay').textContent = Number.isInteger(score) ? score : score.toFixed(1);
   document.getElementById('latestDate').textContent   = formatDate(rows[0].date);
-  animateCup(score); renderEntries(rows);
+  document.getElementById('affirmation').textContent  = getAffirmation(score);
+
+  // Set note inside cup
+  if (rows[0].note) {
+    document.getElementById('cupNoteText').textContent = rows[0].note;
+  }
+
+  animateCup(score);
+  renderTrend(rows);
+  renderEntries(rows);
 }
 
 window.addEventListener('DOMContentLoaded', loadSheet);
